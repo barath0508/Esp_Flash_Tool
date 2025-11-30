@@ -40,11 +40,13 @@ export function SerialMonitor() {
     serialMonitorOpen,
     addSerialMessage,
     clearSerialMessages,
-    setSerialConnected,
+    connectSerial,
+    disconnectSerial,
+    setBaudRate,
+    baudRate,
     toggleSerialMonitor,
   } = useIDEStore();
 
-  const [baudRate, setBaudRate] = useState('115200');
   const [inputMessage, setInputMessage] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -54,55 +56,11 @@ export function SerialMonitor() {
   }, [serialMessages]);
 
   const handleConnect = async () => {
-    if ('serial' in navigator) {
-      try {
-        const port = await (navigator as any).serial.requestPort();
-        await port.open({ baudRate: parseInt(baudRate) });
-        setSerialConnected(true);
-
-        addSerialMessage({
-          timestamp: new Date(),
-          message: `Connected at ${baudRate} baud`,
-          type: 'info',
-        });
-
-        const reader = port.readable.getReader();
-        const decoder = new TextDecoder();
-
-        while (true) {
-          const { value, done } = await reader.read();
-          if (done) break;
-
-          const text = decoder.decode(value);
-          addSerialMessage({
-            timestamp: new Date(),
-            message: text,
-            type: 'received',
-          });
-        }
-      } catch (error) {
-        addSerialMessage({
-          timestamp: new Date(),
-          message: `Connection failed: ${error}`,
-          type: 'error',
-        });
-      }
-    } else {
-      addSerialMessage({
-        timestamp: new Date(),
-        message: 'Web Serial API not supported in this browser',
-        type: 'error',
-      });
-    }
+    await connectSerial();
   };
 
-  const handleDisconnect = () => {
-    setSerialConnected(false);
-    addSerialMessage({
-      timestamp: new Date(),
-      message: 'Disconnected',
-      type: 'info',
-    });
+  const handleDisconnect = async () => {
+    await disconnectSerial();
   };
 
   const handleSend = () => {
@@ -138,7 +96,7 @@ export function SerialMonitor() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Select value={baudRate} onValueChange={setBaudRate}>
+          <Select value={baudRate.toString()} onValueChange={(v) => setBaudRate(parseInt(v))}>
             <SelectTrigger className="w-24 h-7 text-xs bg-gray-900 border-gray-600">
               <SelectValue />
             </SelectTrigger>

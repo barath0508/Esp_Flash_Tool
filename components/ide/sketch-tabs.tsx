@@ -62,15 +62,15 @@ void loop() {
   };
 
   return (
-    <div className="flex items-center gap-1 px-4 py-2 bg-slate-800/50 backdrop-blur-sm border-b border-slate-700/50 overflow-x-auto">
+    <div className="flex items-center gap-1 px-4 py-2 glass border-b border-white/10 overflow-x-auto">
       {sketches.map((sketch) => (
         <div
           key={sketch.id}
           className={cn(
-            'flex items-center gap-2 px-4 py-2 rounded-t-lg min-w-fit transition-all duration-200',
+            'flex items-center gap-2 px-4 py-2 rounded-t-lg min-w-fit transition-all duration-200 border-t-2',
             sketch.id === activeSketchId
-              ? 'bg-slate-900 text-white shadow-lg border-t-2 border-blue-500'
-              : 'bg-slate-700/50 text-gray-300 hover:bg-slate-600/70 hover:text-white'
+              ? 'bg-white/10 text-white border-cosmic-blue shadow-[0_-4px_10px_rgba(59,130,246,0.1)]'
+              : 'bg-transparent text-gray-400 border-transparent hover:bg-white/5 hover:text-gray-200'
           )}
         >
           {renamingId === sketch.id ? (
@@ -97,7 +97,7 @@ void loop() {
                 <FileCode className="w-3.5 h-3.5" />
                 {sketch.name}
                 {sketch.saved && (
-                  <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full shadow-sm" title="Saved" />
+                  <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full shadow-sm animate-pulse" title="Saved" />
                 )}
               </button>
 
@@ -106,7 +106,7 @@ void loop() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-5 w-5 p-0 hover:bg-slate-800/70 rounded"
+                    className="h-5 w-5 p-0 hover:bg-white/10 rounded"
                   >
                     <MoreVertical className="w-3.5 h-3.5" />
                   </Button>
@@ -172,11 +172,11 @@ void loop() {
         variant="ghost"
         size="icon"
         onClick={handleAddSketch}
-        className="h-8 w-8 text-gray-400 hover:text-white hover:bg-slate-700/70 rounded-lg transition-all duration-200"
+        className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
       >
         <Plus className="w-4 h-4" />
       </Button>
-      
+
       <ShareDialog open={shareDialogOpen} onOpenChange={setShareDialogOpen} />
     </div>
   );

@@ -16,7 +16,7 @@ export function CodeEditor() {
   };
 
   return (
-    <div className="h-full w-full bg-[#1e1e1e]">
+    <div className="h-full w-full bg-[#1e1e1e] border-t border-white/10">
       <Editor
         height="100%"
         defaultLanguage="cpp"

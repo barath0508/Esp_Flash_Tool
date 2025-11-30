@@ -133,20 +133,20 @@ export function LibraryManager() {
                             variant="outline"
                             size="sm"
                             onClick={() => uninstallLibrary(lib.id)}
-                            className="border-red-600 text-red-400 hover:bg-red-950 hover:text-red-300"
+                            className="border-blue-600 text-blue-400 hover:bg-blue-950 hover:text-blue-300"
                           >
-                            <X className="w-4 h-4 mr-1" />
-                            Remove
+                            <Check className="w-4 h-4 mr-1" />
+                            Added
                           </Button>
                         ) : (
                           <Button
                             variant="outline"
                             size="sm"
                             onClick={() => installLibrary(lib.id)}
-                            className="border-green-600 text-green-400 hover:bg-green-950 hover:text-green-300"
+                            className="border-gray-600 text-gray-400 hover:bg-white/10 hover:text-white"
                           >
                             <Download className="w-4 h-4 mr-1" />
-                            Install
+                            Use
                           </Button>
                         )}
                       </div>

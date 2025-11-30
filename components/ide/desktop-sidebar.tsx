@@ -13,23 +13,23 @@ export function DesktopSidebar() {
   const [shareDialogOpen, setShareDialogOpen] = useState(false);
 
   return (
-    <div className="hidden lg:flex flex-col w-80 bg-slate-900/95 backdrop-blur-sm border-r border-slate-700/50">
+    <div className="hidden lg:flex flex-col w-80 glass border-r border-white/10">
       <Tabs defaultValue="board" className="flex-1 flex flex-col">
-        <TabsList className="w-full justify-start rounded-none bg-slate-800/50 border-b border-slate-700/50">
-          <TabsTrigger value="board" className="data-[state=active]:bg-slate-900 data-[state=active]:text-blue-400">
+        <TabsList className="w-full justify-start rounded-none bg-white/5 border-b border-white/10">
+          <TabsTrigger value="board" className="data-[state=active]:bg-white/10 data-[state=active]:text-cosmic-blue hover:text-white transition-colors">
             <Cpu className="w-4 h-4 mr-2" />
             Board
           </TabsTrigger>
           <TabsTrigger
             value="examples"
-            className="data-[state=active]:bg-slate-900 data-[state=active]:text-purple-400"
+            className="data-[state=active]:bg-white/10 data-[state=active]:text-cosmic-purple hover:text-white transition-colors"
           >
             <Folder className="w-4 h-4 mr-2" />
             Examples
           </TabsTrigger>
           <TabsTrigger
             value="community"
-            className="data-[state=active]:bg-slate-900 data-[state=active]:text-green-400"
+            className="data-[state=active]:bg-white/10 data-[state=active]:text-cosmic-cyan hover:text-white transition-colors"
           >
             <Users className="w-4 h-4 mr-2" />
             Community
@@ -48,8 +48,8 @@ export function DesktopSidebar() {
           <CommunityPanel />
         </TabsContent>
       </Tabs>
-      
-      <div className="p-4 border-t border-slate-700/50">
+
+      <div className="p-4 border-t border-white/10">
         <Button
           onClick={() => setShareDialogOpen(true)}
           className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg shadow-blue-500/25"
@@ -59,7 +59,7 @@ export function DesktopSidebar() {
           Share Project
         </Button>
       </div>
-      
+
       <ShareDialog open={shareDialogOpen} onOpenChange={setShareDialogOpen} />
     </div>
   );
